@@ -1,0 +1,175 @@
+<h1>First Angular App</h1>
+<app-navbar></app-navbar>
+<app-header></app-header>
+<h2>{{title}}</h2>
+<p>{{ 1+1 }}</p>
+
+<img src ="{{ imgUrl }}" alt="image">
+
+<img [src] ="imgUrl" alt="image">
+
+<!--Property Binding -->
+<button disabled="{{ isDisabled }}">Disable using String Interpolation button</button>
+<button [disabled]="isDisabled">Disable using property binding button</button>
+
+<br>
+<br>
+
+<!--class Binding -->
+<button [class.active] = "isActive"  [class.no-active] = "!isActive"> Click me </button>
+
+<button [class.apple] = "fruitName == 'Apple'">Fruit Ninja</button>
+
+<br>
+<br>
+
+<!--style Binding (DOM style property)-->
+<button [style.background-color] = "isActive?'red' : 'green'"> Style Binding </button>
+
+<br>
+<br>
+
+<!--multiple style Binding -->
+<button [style.background-color] = "isActive?'red' : 'green'"[style.border] = "isActive?'3px solid yellow' : ''"> Multiple Style Binding </button>
+
+<br>
+<br>
+
+<!--event Binding -->
+<button (click)="buttonClick()">Click Event </button>
+<button (mouseover)="buttonClick()">Mouseover Event </button>
+<input type="text" (keyup) = "keyEnter()">
+
+<br>
+<br>
+
+<!--event filtering -->
+<input type="text" (keyup) = "enterKey($event)">
+<input type="text" (keyup.a) = "keyupFiltering()">
+
+<br>
+<br>
+
+<!--template variable -->
+<input type="text" (keyup.enter) = "keyupFiltering1(user)" #user id="userInput">
+
+<br>
+<br>
+
+<!--two way data binding -->
+<!--<input type="text" [value]="userName" #username (keyup.enter) = "updateUserName(username)">-->
+<input type="text" [(ngModel)] = "userName">
+<h3>{{ userName }}</h3>
+
+<br>
+<br>
+
+<!--directives -->
+<!--old method-->
+<h3> IF </h3>
+<h4 *ngIf = "isLoggedIn">{{ userNamme }}</h4>
+<h4 *ngIf = "!isLoggedIn">User is not logged in</h4>
+
+<br>
+<br>
+
+<!--new method-->
+@if(isLoggedIn){
+    <h4>{{ userNamme }}</h4>
+}@else {
+    <h4>User is not logged in (loaded using else syntax block)</h4>
+}
+@if(!isLoggedIn){
+    <h4>User is not logged in  (loaded using if syntax block)</h4>
+}
+
+<br>
+<br>
+
+<!--ngTemplate-->
+<h4 *ngIf = "isLoggedIn; else message">{{ userNamme }}</h4>
+<ng-template #message>
+    <h4>User is not logged in  (loaded using ng-template)</h4>
+</ng-template>
+
+<br>
+<br>
+
+<!--ngIf multiple conditions-->
+
+<h4 *ngIf ="isAdmin">Welcome Admin</h4>
+<h4 *ngIf = "isMember">Welcome Member</h4>
+<h4 *ngIf = "isGuest">Welcome Guest</h4>
+
+<br>
+<br>
+
+<h4 *ngIf ="isAdmin ; else member" >Welcome Admin</h4>
+<ng-template #member>
+    <h4 *ngIf = "isMember ; else guest">Welcome Member</h4>
+</ng-template>
+<ng-template #guest>
+    <h4 *ngIf = "isGuest ">Welcome Guest</h4>
+</ng-template>
+
+<br>
+<br>
+
+<!--If-Else-Else if multiple conditions-->
+@if(isAdmin){
+    <h4>Welcome Admin</h4>
+}@else if (isMember) {
+    <h4>Welcome Member</h4>
+}@else {
+    <h4>Welcome Guest</h4>
+}
+<br>
+<br>
+
+<!--Parent child relationship -->
+<app-navbar [fromParent] = 'parentMSG'></app-navbar> <!--look at navbar ts and html-->
+
+<br>
+<br>
+
+<!-- ngIf Number Value Conditions-->
+ <button (click) = "countLogin()"> Log in </button>
+ <!-- <button (click) = "countLogin()" *ngIf="logInCount < 3"> Log in </button>-->
+ <h4 *ngIf="logInCount > 3">Exceeded 3 login Attempts, Try again later</h4>
+
+<br>
+<br>
+
+<!-- @If Number Value Conditions-->
+@if (logInCount < 3) {
+    <button (click) = "countLoginAttampt()"> Log Syntax </button>
+}
+@if (logInCount > 4) {
+    <h4>Exceeded 3 login Attempts, Try again later</h4>
+}
+
+<br>
+<br>
+
+<!-- ngIf String Value Conditions-->
+<h4 *ngIf="userRole == 'Admin' ;else memberMSG">Welcome Admin</h4>
+<ng-template #memberMSG >
+    <h4>Welcome Member</h4>
+</ng-template>
+
+<br>
+<br>
+
+<!-- @If String Value Conditions-->
+ @if (userRole=='Admin') {
+    <h4>Welcome Admin</h4>
+ } @else if(userRole=='Member') {
+    <h4>Welcome Member</h4>
+ }
+
+
+
+
+
+
+
